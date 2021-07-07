@@ -115,6 +115,7 @@
 import SearchDiv from '@/components/SearchDiv.vue'
 import DataTable from '@/components/DataTable.vue'
 import EventBus from '@/EventBus.js'
+import treeFile from '@/vdata/tree.txt'
 
 export default {
 	name: 'Group',
@@ -142,44 +143,7 @@ export default {
 		],
 		datas: [],
 		tmp_datas: [],
-		items: [
-			{ id: 1, weekly: 'X', monthly: 'X', sdate: '2020-02-05', gname: 'grp', pname: 'site', pid: 0 },
-			{ id: 2, weekly: 'O', monthly: 'O', sdate: '2020-02-05', gname: 'grp2', pname: 'site', pid: 0 },
-			{ id: 3, weekly: 'O', monthly: 'X', sdate: '2020-02-05', gname: 'grp3', pname: 'site', pid: 0 },
-			{ id: 4, weekly: 'O', monthly: 'O', sdate: '2020-02-05', gname: 'Dickerson', pname: 'Macdonald' },
-			{ id: 5, weekly: 'O', monthly: 'X', sdate: '2020-02-05', gname: 'Larsen', pname: 'Shaw' },
-			{ id: 6, weekly: 'O', monthly: 'O', sdate: '2020-02-05', gname: 'Geneva', pname: 'Wilson' },
-			{ id: 7, weekly: 'O', monthly: 'X', sdate: '2020-02-05', gname: 'Dickerson', pname: 'Macdonald' },
-			{ id: 8, weekly: 'O', monthly: 'O', sdate: '2020-02-05', gname: 'Larsen', pname: 'Shaw' },
-			{ id: 9, weekly: 'O', monthly: 'X', sdate: '2020-02-05', gname: 'Geneva', pname: 'Wilson' },
-			{ id: 10, weekly: 'O', monthly: 'X', sdate: '2020-02-05', gname: 'Dickerson', pname: 'Macdonald' },
-			{ id: 11, weekly: 'O', monthly: 'O', sdate: '2020-02-05', gname: 'Larsen', pname: 'Shaw' },
-			{ id: 12, weekly: 'O', monthly: 'O', sdate: '2020-02-05', gname: 'Geneva', pname: 'Wilson' },
-			{ id: 13, weekly: 'O', monthly: 'O', sdate: '2020-02-05', gname: 'Dickerson', pname: 'Macdonald' },
-			{ id: 14, weekly: 'X', monthly: 'X', sdate: '2020-02-05', gname: 'Larsen', pname: 'Shaw' },
-			{ id: 15, weekly: 'X', monthly: 'O', sdate: '2020-02-05', gname: 'Geneva', pname: 'Wilson' },
-			{ id: 16, weekly: 'X', monthly: 'X', sdate: '2020-02-05', gname: 'Dickerson', pname: 'Macdonald' },
-			{ id: 17, weekly: 'X', monthly: 'O', sdate: '2020-02-05', gname: 'Larsen', pname: 'Shaw' },
-			{ id: 18, weekly: 'X', monthly: 'X', sdate: '2020-02-05', gname: 'Geneva', pname: 'Wilson' },
-			{ id: 19, weekly: 'X', monthly: 'X', sdate: '2020-02-05', gname: 'Dickerson', pname: 'Macdonald' },
-			{ id: 20, weekly: 'X', monthly: 'X', sdate: '2020-02-05', gname: 'Larsen', pname: 'Shaw' },
-			{ id: 21, weekly: 'X', monthly: 'X', sdate: '2020-02-05', gname: 'Geneva', pname: 'Wilson' },
-			{ id: 22, weekly: 'X', monthly: 'O', sdate: '2020-02-05', gname: 'Dickerson', pname: 'Macdonald' },
-			{ id: 23, weekly: 'X', monthly: 'X', sdate: '2020-02-05', gname: 'Larsen', pname: 'Shaw' },
-			{ id: 24, weekly: 'X', monthly: 'X', sdate: '2020-02-05', gname: 'Geneva', pname: 'Wilson' },
-			{ id: 25, weekly: 'X', monthly: 'X', sdate: '2020-02-05', gname: 'Dickerson', pname: 'Macdonald' },
-			{ id: 26, weekly: 'X', monthly: 'X', sdate: '2020-02-05', gname: 'Larsen', pname: 'Shaw' },
-			{ id: 27, weekly: 'X', monthly: 'X', sdate: '2020-02-05', gname: 'Geneva', pname: 'Wilson' },
-			{ id: 28, weekly: 'X', monthly: 'X', sdate: '2020-02-05', gname: 'Dickerson', pname: 'Macdonald' },
-			{ id: 29, weekly: 'O', monthly: 'O', sdate: '2020-02-05', gname: 'Larsen', pname: 'Shaw' },
-			{ id: 30, weekly: 'O', monthly: 'O', sdate: '2020-02-05', gname: 'Geneva', pname: 'Wilson' },
-			{ id: 31, weekly: 'O', monthly: 'X', sdate: '2020-02-05', gname: 'Dickerson', pname: 'Macdonald' },
-			{ id: 32, weekly: 'O', monthly: 'X', sdate: '2020-02-05', gname: 'Larsen', pname: 'Shaw' },
-			{ id: 33, weekly: 'O', monthly: 'X', sdate: '2020-02-05', gname: 'Geneva', pname: 'Wilson' },
-			{ id: 34, weekly: 'O', monthly: 'X', sdate: '2020-02-05', gname: 'Dickerson', pname: 'Macdonald' },
-			{ id: 35, weekly: 'O', monthly: 'X', sdate: '2020-02-05', gname: 'Larsen', pname: 'Shaw' },
-			{ id: 36, weekly: 'O', monthly: 'X', sdate: '2020-02-05', gname: 'Geneva', pname: 'Wilson' },
-		],
+		items: [],
 
 		popup_status: 'view',
 		opt_report: [
@@ -212,6 +176,36 @@ export default {
 		editedIndex: -1,
 	}),
 	methods: {
+		getTree: function(cont) {
+			console.log(cont);
+			var tmp = cont.split('\n');
+			console.log(tmp);
+
+			var grp = [];
+			var new_tree = [];
+			for(var k in tmp) {
+				var obj = {};
+				grp = tmp[k].split(' ');
+				if(!grp[0] || grp[0] == '#id' || !parseInt(grp[2]) || parseInt(grp[2]) == 4) {
+					continue;
+				}
+				obj.id = parseInt(grp[0]);
+				obj.gname = grp[1];
+				obj.slave = parseInt(grp[2]);
+				obj.pid = parseInt(grp[3]);
+				obj.pname = grp[4];
+				obj.sdate = grp[5];
+				obj.weekly = parseInt(grp[6]) ? 'O' : 'X';
+				obj.monthly = parseInt(grp[7]) ? 'O' : 'X';
+				obj.week = parseInt(grp[6]);
+				obj.month = parseInt(grp[7]);
+
+				console.log(obj);
+				new_tree.push(obj);
+			}
+			console.log(new_tree);
+			this.datas = new_tree;
+		},
 		searchClick: function(type, val) {
 			if(val.length) {
 				this.datas = this.tmp_datas;
@@ -327,6 +321,8 @@ export default {
 
 		this.datas = this.items;
 		this.tmp_datas = this.items;
+
+		this.getTree(treeFile);
 
 		EventBus.$on('tree_click', val => {
 			if(val != undefined) {
